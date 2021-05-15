@@ -11,8 +11,8 @@ int main(void)
 
 	idIncremental = 1;
 
-	HardcodeDataEmployee(lista, TL);
-	//initEmployees(lista, TL);
+	//HardcodeDataEmployee(lista, TL);
+	initEmployees(lista, TL);
 
 	do
 	{
