@@ -35,7 +35,7 @@ Employee GetData(int idIncremental)
 void HardcodeDataEmployee(Employee lista[], int tam)
 {
     int i;
-    Employee listaHard[]={{1, "Cesar", "Algañaras", 250, 8, OCUPADO},{2, "Tengo", "Hambre", 4574, 1, OCUPADO},
+    Employee listaHard[]={{1, "Cesar", "AlgaÃ±aras", 250, 8, OCUPADO},{2, "Tengo", "Hambre", 4574, 1, OCUPADO},
 						{3, "Juan", "Fernandez", 400, 2, OCUPADO},{4, "Emilio", "Diaz", 350, 2, OCUPADO}};
 
     for(i=0;i<tam;i++)
@@ -212,9 +212,6 @@ int ModifyEmployee(Employee lista[], int tam)
 							GetInt("Ingrese el nuevo sector", "Error");
 							rtn=1;
 							break;
-						case 5:
-							rtn=3;
-							break;
 					}
 			 }
 		 }
@@ -272,9 +269,9 @@ int OrderEmployees(Employee lista[], int tam)
     respuesta=tolower(respuesta);
     if(respuesta=='s')
     {
-    	printf("Elija el orden alfabetico\n");
-		printf("1-Ordenamiento A-Z\n");
-		printf("2-Ordenamiento Z-A\n");
+    		printf("Elija el orden alfabetico\n");
+		printf("1-Ordenar de A a Z\n");
+		printf("2-Ordenar de Z a A\n");
 		opcion=GetIntConRango("Ingrese una opcion: ", "Error", 1, 2);
 
 		if(opcion==1)
