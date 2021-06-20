@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "controller.h"
 
+
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -71,13 +72,13 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
 	Employee* pEmployee;
 
+	int id;
 	char nombre[128];
 	int horasTrabajadas;
 	int sueldo;
 	int validHs;
 	int validNombre;
 	int validSueldo;
-	int len;
 	int rtn=0;
 
 	pEmployee=employee_new();
@@ -87,14 +88,13 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 		validNombre=GetName(nombre, "Ingrese su nombre: ", "Error", 128);
 		validHs=GetIntConRango(&horasTrabajadas, "Ingrese las horas trabajadas: ", "Error", 1, 500);
 		validSueldo=GetIntConRango(&sueldo, "Ingrese su sueldo: ", "Error", 1, 500000);
-
+		id=controller_readId(pArrayListEmployee, "id.bat")+1;
 		if(validNombre && validHs && validSueldo)
 		{
-				len=employee_ultimoId(pArrayListEmployee)+1;
-				employee_setId(pEmployee,len);
-				employee_setNombre(pEmployee,nombre);
-				employee_setHorasTrabajadas(pEmployee,horasTrabajadas);
-				employee_setSueldo(pEmployee,sueldo);
+				employee_setId(pEmployee, id);
+				employee_setNombre(pEmployee, nombre);
+				employee_setHorasTrabajadas(pEmployee, horasTrabajadas);
+				employee_setSueldo(pEmployee, sueldo);
 
 				ll_add(pArrayListEmployee,pEmployee);
 
@@ -135,11 +135,12 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 			printf("Demasiados intentos.");
 			rtn=2;
 		}
-		indexEmployee=employee_BuscarEmpleadoPorId(pArrayListEmployee, &idModify);
+		indexEmployee=employee_BuscarEmpleadoPorId(pArrayListEmployee, idModify);
 			if(indexEmployee!=-1)
 			{
 				pEmployeeAux = (Employee*) ll_get(pArrayListEmployee, indexEmployee);
-				GetChar(&confirmacion, "Esta seguro desea modificar el empleado? ingrese [S] para confirmar [N] para salir: ", "Error");
+				employee_printEmployee(pArrayListEmployee, indexEmployee);
+				GetChar(&confirmacion, "Esta seguro desea modificar este empleado? ingrese [S] para confirmar [N] para salir: ", "Error");
 				confirmacion = tolower(confirmacion);
 				rtn=-1;
 				if(confirmacion=='s')
@@ -191,39 +192,35 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-	Employee* pEmployeeAux;
+	int indexEmployee;
 	int idDelete;
-	int auxId;
 	int len;
-	int i;
 	int rtn=0;
 	char opcion;
 
 	len = ll_len(pArrayListEmployee);
 
-	if(pArrayListEmployee != NULL)
+	if(pArrayListEmployee != NULL && len>0)
 	{
-		employee_printEmployees(pArrayListEmployee);
-		if(!GetIntConRango(&idDelete, "Ingrese el id del empleado que desea eliminar: ", "Error", 1, len))
+		controller_ListEmployee(pArrayListEmployee);
+		if(!GetIntConRango(&idDelete, "Ingrese el id del empleado que desea dar de baja: ", "Error", 1, 5000))
 		{
 			printf("Demasiados intentos.");
+			rtn=2;
 		}
-		for(i=0;i<len;i++)
-		{
-			pEmployeeAux = (Employee*) ll_get(pArrayListEmployee, i);
-			employee_getId(pEmployeeAux, &auxId);
-			if(idDelete == auxId && pEmployeeAux != NULL)
+		indexEmployee=employee_BuscarEmpleadoPorId(pArrayListEmployee, idDelete);
+			if(indexEmployee!=-1)
 			{
-				GetChar(&opcion, "Esta seguro desea dar de baja el empleado? ingrese [S] para confirmar [N] para salir: ", "Error");
+				employee_printEmployee(pArrayListEmployee, indexEmployee);
+				GetChar(&opcion, "Esta seguro desea dar de baja este empleado? ingrese [S] para confirmar [N] para salir: ", "Error");
 				opcion = tolower(opcion);
 				rtn=-1;
 				if(opcion=='s')
 				{
-					ll_remove(pArrayListEmployee, i);
+					ll_remove(pArrayListEmployee, indexEmployee);
 					rtn=1;
 				}
 			}
-		}
 	}
 
 	return rtn;
@@ -260,12 +257,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 	int opcion;
 	int opcionSubmenu;
 	int rtn=0;
-	int len;
+	int isEmpty;
 
-	len = ll_len(pArrayListEmployee);
+	isEmpty = ll_isEmpty(pArrayListEmployee);
 
 
-	if(pArrayListEmployee != NULL && len>0)
+	if(pArrayListEmployee != NULL && isEmpty!=1)
 	{
 		do
 		{
@@ -274,61 +271,53 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 			{
 				case 1:
 					opcionSubmenu=opcionOrden();
-					if(ll_sort(pArrayListEmployee, employee_OrdenarPorId, opcionSubmenu))
+					ll_sort(pArrayListEmployee, employee_OrdenarPorId, opcionSubmenu);
+					if(opcionSubmenu==3)
 					{
-						if(opcionSubmenu==3)
-						{
-							rtn=-1;
-						}
-						else
-						{
-							rtn=1;
-						}
+						rtn=-1;
+					}
+					else
+					{
+						rtn=1;
 					}
 					opcion=5;
 					break;
 				case 2:
 					opcionSubmenu=opcionOrden();
-					if(ll_sort(pArrayListEmployee, employee_OrdenarPorNombre, opcionSubmenu))
+					ll_sort(pArrayListEmployee, employee_OrdenarPorNombre, opcionSubmenu);
+					if(opcionSubmenu==3)
 					{
-						if(opcionSubmenu==3)
-						{
-							rtn=-1;
-						}
-						else
-						{
-							rtn=1;
-						}
+						rtn=-1;
+					}
+					else
+					{
+						rtn=1;
 					}
 					opcion=5;
 					break;
 				case 3:
 					opcionSubmenu=opcionOrden();
-					if(ll_sort(pArrayListEmployee, employee_OrdenarPorHorasTrabajadas, opcionSubmenu))
+					ll_sort(pArrayListEmployee, employee_OrdenarPorHorasTrabajadas, opcionSubmenu);
+					if(opcionSubmenu==3)
 					{
-						if(opcionSubmenu==3)
-						{
-							rtn=-1;
-						}
-						else
-						{
-							rtn=1;
-						}
+						rtn=-1;
+					}
+					else
+					{
+						rtn=1;
 					}
 					opcion=5;
 					break;
 				case 4:
 					opcionSubmenu=opcionOrden();
-					if(ll_sort(pArrayListEmployee, employee_OrdenarPorSueldo, opcionSubmenu))
+					ll_sort(pArrayListEmployee, employee_OrdenarPorSueldo, opcionSubmenu);
+					if(opcionSubmenu!=3)
 					{
-						if(opcionSubmenu!=3)
-						{
-							rtn=1;
-						}
-						else
-						{
-							rtn=-1;
-						}
+						rtn=1;
+					}
+					else
+					{
+						rtn=-1;
 					}
 					opcion=5;
 					break;
@@ -382,6 +371,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 				}
 			}
 			fclose(pFile);
+			controller_writeId(pArrayListEmployee, "id.bat");
 		}
 	}
     return rtn;
@@ -418,6 +408,7 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 			rtn=1;
 		}
 		fclose(pFile);
+		controller_writeId(pArrayListEmployee, "id.bat");
 	}
 
 
@@ -448,6 +439,75 @@ int controller_Menu()
 		opcion=10;
 	}
 	return opcion;
+}
+
+int controller_writeId(LinkedList* pArrayListEmployee, char* path)
+{
+	int retorno;
+	int i;
+	int len;
+	Employee* empleado;
+	FILE* pFile;
+
+	retorno = -1;
+
+	if(path != NULL)
+	{
+		len = ll_len(pArrayListEmployee);
+
+		pFile = fopen(path,"wb");
+
+		if(pFile != NULL)
+		{
+			for(i=0;i<len;i++)
+			{
+				empleado = (Employee*) ll_get(pArrayListEmployee, i);
+				retorno = empleado->id;
+			}
+
+			fwrite(&retorno,sizeof(int),1,pFile);
+		}
+
+		fclose(pFile);
+	}
+
+
+	return retorno;
+
+}
+int controller_readId(LinkedList* pArrayListEmployee, char* path)
+{
+	int retorno;
+	int id;
+	int isEmpty;
+	FILE* pFile;
+
+	retorno = -1;
+
+		if(path != NULL)
+		{
+			pFile = fopen(path,"rb");
+
+			if(pFile != NULL)
+			{
+				isEmpty = ll_isEmpty(pArrayListEmployee);
+				if(isEmpty != 1)
+				{
+					fread(&id,sizeof(int),1,pFile);
+					retorno = id;
+				}
+				else
+				{
+					retorno = 0;
+				}
+			}
+
+			fclose(pFile);
+		}
+
+
+	return retorno;
+
 }
 
 

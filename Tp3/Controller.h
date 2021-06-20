@@ -10,6 +10,8 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee);
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
 int controller_Menu();
+int controller_readId(LinkedList* pArrayListEmployee, char* path);
+int controller_writeId(LinkedList* pArrayListEmployee, char* path);
 int subMenuModificar();
 int subMenuOrden();
 int opcionOrden();

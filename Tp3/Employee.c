@@ -139,12 +139,40 @@ int employee_getSueldo(Employee* this,int* sueldo)
 	return rtn;
 }
 
+int employee_printEmployee(LinkedList* pArrayListEmployee, int index)
+{
+	int i=0;
+	int rtn;
+	Employee* pEmployee;
+
+	if(pArrayListEmployee!=NULL && index>=0)
+	{
+		if(i==0)
+		{
+			printf("##==============================================##\n");
+			printf("||%4s || %15s || %7s || %7s ||\n", "ID", "NOMBRE", "HORAS", "SUELDO");
+			printf("##==============================================##\n");
+			i++;
+		}
+		pEmployee = (Employee*) ll_get(pArrayListEmployee, index);
+
+		printf("||%4d || %15s || %7d || %7d ||\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);
+		rtn=1;
+		if(rtn==1)
+		{
+			printf("##==============================================##\n");
+		}
+	}
+
+    return rtn;
+}
+
 int employee_printEmployees(LinkedList* pArrayListEmployee)
 {
 	Employee* pEmployeeAux;
 	int i;
 	int id;
-	char nombre[4096];
+	char nombre[128];
 	int horasTrabajadas;
 	int sueldo;
 	int rtn=0;
@@ -182,12 +210,12 @@ int employee_printEmployees(LinkedList* pArrayListEmployee)
 	return rtn;
 }
 
-int employee_ultimoId(LinkedList* pArrayListEmployee)
+int employee_ultimoId(LinkedList* pArrayListEmployee, int* maxId)
 {
 	Employee* auxEmployee;
 	int largo;
 	int auxId;
-	int ultimoId = 0;
+	int rtn=0;
 
 	largo = ll_len(pArrayListEmployee);
 
@@ -198,13 +226,14 @@ int employee_ultimoId(LinkedList* pArrayListEmployee)
 			auxEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 			employee_getId(auxEmployee, &auxId);
 
-			if(i==0 || auxId > ultimoId)
+			if(i==0 || auxId>*maxId)
 			{
-				ultimoId = auxId;
+				*maxId = auxId;
+				rtn=1;
 			}
 		}
 	}
-	return ultimoId;
+	return rtn;
 
 }
 
@@ -316,7 +345,7 @@ int employee_OrdenarPorSueldo(void* employeeUno, void* employeeDos)
 	return rtn;
 }
 
-int employee_BuscarEmpleadoPorId(LinkedList* pArrayListEmployee, int* id)
+int employee_BuscarEmpleadoPorId(LinkedList* pArrayListEmployee, int id)
 {
 	Employee* pEmployeeAux;
 	int len;
@@ -326,13 +355,13 @@ int employee_BuscarEmpleadoPorId(LinkedList* pArrayListEmployee, int* id)
 
 	len = ll_len(pArrayListEmployee);
 
-	if(pArrayListEmployee != NULL && id != NULL)
+	if(pArrayListEmployee != NULL)
 	{
 		for(i=0;i<len;i++)
 		{
 			pEmployeeAux = (Employee*) ll_get(pArrayListEmployee, i);
 			employee_getId(pEmployeeAux, &auxId);
-			if(*id == auxId && pEmployeeAux != NULL)
+			if(id == auxId)
 			{
 				rtn=i;
 				break;
