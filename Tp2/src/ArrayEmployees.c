@@ -213,9 +213,6 @@ int ModifyEmployee(Employee lista[], int tam)
 							GetIntConRango("Ingrese el nuevo sector: ", "Error", 1, 400000);
 							rtn=1;
 							break;
-						case 5:
-							rtn=3;
-							break;
 					}
 			 }
 		 }
