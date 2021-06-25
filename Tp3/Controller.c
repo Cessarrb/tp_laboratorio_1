@@ -454,7 +454,6 @@ int controller_writeId(LinkedList* pArrayListEmployee, char* path)
 	if(path != NULL)
 	{
 		len = ll_len(pArrayListEmployee);
-
 		pFile = fopen(path,"wb");
 
 		if(pFile != NULL)
@@ -464,14 +463,10 @@ int controller_writeId(LinkedList* pArrayListEmployee, char* path)
 				empleado = (Employee*) ll_get(pArrayListEmployee, i);
 				retorno = empleado->id;
 			}
-
-			fwrite(&retorno,sizeof(int),1,pFile);
+			fwrite(&retorno,sizeof(int),1,pFile); 
 		}
-
 		fclose(pFile);
 	}
-
-
 	return retorno;
 
 }
@@ -501,13 +496,10 @@ int controller_readId(LinkedList* pArrayListEmployee, char* path)
 					retorno = 0;
 				}
 			}
-
 			fclose(pFile);
 		}
-
-
+	
 	return retorno;
-
 }
 
 
@@ -535,7 +527,7 @@ int subMenuOrden()
     printf("4. Por sueldo\n");
     printf("5. Volver\n");
 
-	GetIntConRango(&opcion,"¿Por cual criterio desea ordenar?: ","ERROR", 1, 5);
+	GetIntConRango(&opcion,"Â¿Por cual criterio desea ordenar?: ","ERROR", 1, 5);
 
 	return opcion;
 }
@@ -548,7 +540,7 @@ int opcionOrden()
 	printf("2. Descendente\n");
 	printf("3. Volver\n");
 
-	GetIntConRango(&opcionSubmenu, "¿Como lo desea ordenar?: ", "Error", 1, 3);
+	GetIntConRango(&opcionSubmenu, "Â¿Como lo desea ordenar?: ", "Error", 1, 3);
 
 	if(opcionSubmenu==2)
 	{
