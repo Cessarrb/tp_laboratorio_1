@@ -22,10 +22,10 @@ Employee GetData(int idIncremental)
 	Employee employee;
 
 	printf("Id otorgado: %d\n", idIncremental);
-	GetName(employee.name, "Ingrese su nombre: ", "Error", 20);
-	GetName(employee.lastName, "Ingrese su apellido: ", "Error", 20);
-	employee.salary=GetFloat("Ingrese su salario: ", "Error");
-	employee.sector=GetInt("Ingrese su sector: ", "Error");
+	GetName(employee.name, "Ingrese su nombre: ", "Error", 51);
+	GetName(employee.lastName, "Ingrese su apellido: ", "Error", 51);
+	employee.salary=GetFloatConRango("Ingrese su salario: ", "Error", 1, 500000);
+	employee.sector=GetIntConRango("Ingrese su sector: ", "Error", 1, 400000);
 
 	employee.isEmpty=OCUPADO;
 
@@ -132,17 +132,17 @@ int RemoveEmployee(Employee lista[], int tam)
 			 printf("Error. ");
 			 id=GetInt("Ingrese el ID del empleado que desea dar de baja: ", "Error");
 			 flag++;
-			 if(flag==3)//Hago uso de la bandera como un contador para romper el while por varios intentos fallidos
+			 if(flag==6)//Hago uso de la bandera como un contador para romper el while por varios intentos fallidos
 			 {
-				 printf("Supero el limite de intentos para ingresar un ID, se regresara al menu principal.\n");
 				 rtn=2;
 				 break;
 			 }
 		 }
-		 if(flag!=3)
+		 if(flag!=6)
 		 {
-			 respuesta=GetChar("Esta seguro que desea dar de baja al empleado? Ingrese [s] para continuar o [n] para cancelar: ", "Error");
+			 respuesta=GetChar("Esta seguro que desea dar de baja al empleado? Ingrese [S] para continuar o [N] para cancelar: ", "Error");
 			 respuesta=tolower(respuesta);
+			 rtn=3;
 			 if(respuesta=='s')
 			 {
 				 lista[index].isEmpty=VACIO;
@@ -177,16 +177,17 @@ int ModifyEmployee(Employee lista[], int tam)
 			printf("Error. ");
 			id=GetInt("Ingrese el ID del empleado que desea modificar: ", "Error");
 			flag++;
-			if(flag==3)//Hago uso de la bandera como un contador para romper el while por varios intentos fallidos
+			if(flag==6)//Hago uso de la bandera como un contador para romper el while por varios intentos fallidos
 			{
 				rtn=2;
 				break;
 			}
 		}
-		if(flag!=3)
+		if(flag!=6)
 		 {
-			 respuesta=GetChar("Esta seguro que desea modificar un empleado? Ingrese [s] para continuar o [n] para cancelar: ", "Error");
+			 respuesta=GetChar("Esta seguro que desea modificar un empleado? Ingrese [S] para continuar o [N] para cancelar: ", "Error");
 			 respuesta=tolower(respuesta);
+			 rtn=3;
 			 if(respuesta=='s')
 			 {
 					printf("1-NOMBRE\n");
@@ -197,19 +198,19 @@ int ModifyEmployee(Employee lista[], int tam)
 					switch(opcion)
 					{
 						case 1:
-							GetString(lista[index].name, "Ingrese el nuevo nombre: ", "Error", TAM_BUFFER);
+							GetName(lista[index].name, "Ingrese el nuevo nombre: ", "Error", 51);
 							rtn=1;
 							break;
 						case 2:
-							GetString(lista[index].name, "Ingrese el nuevo apellido ", "Error", TAM_BUFFER);
+							GetName(lista[index].name, "Ingrese el nuevo apellido: ", "Error", 51);
 							rtn=1;
 							break;
 						case 3:
-							GetFloat("Ingrese el nuevo salario", "Error");
+							GetFloatConRango("Ingrese el nuevo salario: ", "Error", 1, 500000);
 							rtn=1;
 							break;
 						case 4:
-							GetInt("Ingrese el nuevo sector", "Error");
+							GetIntConRango("Ingrese el nuevo sector: ", "Error", 1, 400000);
 							rtn=1;
 							break;
 						case 5:
@@ -224,7 +225,7 @@ int ModifyEmployee(Employee lista[], int tam)
 
 void PrintOneEmployee(Employee employee)
 {
-	printf("%4d %20s %20s %10.2f %10d\n", employee.id, employee.name, employee.lastName, employee.salary, employee.sector);
+	printf("%4d %20s %20s %15.2f %12d\n", employee.id, employee.name, employee.lastName, employee.salary, employee.sector);
 }
 
 int PrintEmployees(Employee lista[], int tam)
@@ -242,7 +243,7 @@ int PrintEmployees(Employee lista[], int tam)
 			{
 				if(encabezado==0)
 				{
-					printf("%4s %20s %20s %10s %10s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
+					printf("%4s %20s %20s %15s %12s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
 					encabezado++;
 				}
 

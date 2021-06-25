@@ -88,7 +88,7 @@ float GetFloatConRango(char MSJ[], char MSJ_ERROR[], float RANGO_MIN, float RANG
 
 	while(indexNumero<RANGO_MIN || indexNumero>RANGO_MAX)
 	{
-		printf("Error, numero fuera de rango, minimo: %f o maximo: %f\n", RANGO_MIN, RANGO_MAX);
+		printf("Error, numero fuera de rango, minimo: %.2f o maximo: %.2f\n", RANGO_MIN, RANGO_MAX);
 		indexNumero=GetFloat(MSJ, MSJ_ERROR);
 	}
 

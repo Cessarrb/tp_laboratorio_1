@@ -11,7 +11,6 @@ int main(void)
 
 	idIncremental = 1;
 
-	//HardcodeDataEmployee(lista, TL);
 	InitEmployees(lista, TL);
 
 	do
@@ -35,7 +34,7 @@ int main(void)
 				switch(ModifyEmployee(lista, TL))
 				{
 					case 0:
-						printf("No hay datos cargados.\n");
+						printf("No hay datos cargados, primero cargue los datos de un empleado.\n");
 						break;
 					case 1:
 						printf("Modificacion exitosa!\n");
@@ -49,7 +48,7 @@ int main(void)
 				switch(RemoveEmployee(lista, TL))
 				{
 					case 0:
-						printf("No hay datos cargados.\n");
+						printf("No hay datos cargados, primero cargue los datos de un empleado.\n");
 						break;
 					case 1:
 						printf("Baja exitosa!\n");
@@ -62,7 +61,7 @@ int main(void)
 			case 4:
 				if(Report(lista, TL)!=1)
 				{
-					printf("No hay datos cargados.");
+					printf("No hay datos cargados, primero cargue los datos de un empleado.\n");
 				}
 
 				break;
