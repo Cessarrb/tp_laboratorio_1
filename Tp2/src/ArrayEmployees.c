@@ -22,8 +22,8 @@ Employee GetData(int idIncremental)
 	Employee employee;
 
 	printf("Id otorgado: %d\n", idIncremental);
-	GetString(employee.name, "Ingrese su nombre: ", "Error", TAM_BUFFER);
-	GetString(employee.lastName, "Ingrese su apellido: ", "Error", TAM_BUFFER);
+	GetName(employee.name, "Ingrese su nombre: ", "Error", 20);
+	GetName(employee.lastName, "Ingrese su apellido: ", "Error", 20);
 	employee.salary=GetFloat("Ingrese su salario: ", "Error");
 	employee.sector=GetInt("Ingrese su sector: ", "Error");
 
@@ -35,7 +35,7 @@ Employee GetData(int idIncremental)
 void HardcodeDataEmployee(Employee lista[], int tam)
 {
     int i;
-    Employee listaHard[]={{1, "Cesar", "AlgaÃ±aras", 250, 8, OCUPADO},{2, "Tengo", "Hambre", 4574, 1, OCUPADO},
+    Employee listaHard[]={{1, "Cesar", "Algañaras", 250, 8, OCUPADO},{2, "Julio", "Diaz", 4574, 1, OCUPADO},
 						{3, "Juan", "Fernandez", 400, 2, OCUPADO},{4, "Emilio", "Diaz", 350, 2, OCUPADO}};
 
     for(i=0;i<tam;i++)
@@ -44,7 +44,7 @@ void HardcodeDataEmployee(Employee lista[], int tam)
     }
 }
 
-void initEmployees(Employee lista[], int tam)
+void InitEmployees(Employee lista[], int tam)
 {
 	int i;
 
@@ -212,6 +212,9 @@ int ModifyEmployee(Employee lista[], int tam)
 							GetInt("Ingrese el nuevo sector", "Error");
 							rtn=1;
 							break;
+						case 5:
+							rtn=3;
+							break;
 					}
 			 }
 		 }
@@ -221,7 +224,7 @@ int ModifyEmployee(Employee lista[], int tam)
 
 void PrintOneEmployee(Employee employee)
 {
-	printf("%4d %10s %15s %10.2f %10d\n", employee.id, employee.name, employee.lastName, employee.salary, employee.sector);
+	printf("%4d %20s %20s %10.2f %10d\n", employee.id, employee.name, employee.lastName, employee.salary, employee.sector);
 }
 
 int PrintEmployees(Employee lista[], int tam)
@@ -229,7 +232,7 @@ int PrintEmployees(Employee lista[], int tam)
 	int i;
 	int rtn = 0;
 	int cantidad = 0;
-
+	int encabezado = 0;
 
 	if (lista != NULL && tam>0)
 	{
@@ -237,9 +240,10 @@ int PrintEmployees(Employee lista[], int tam)
 		{
 			if(lista[i].isEmpty == OCUPADO)
 			{
-				if(i==0)
+				if(encabezado==0)
 				{
-					printf("%4s %10s %15s %10s %10s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
+					printf("%4s %20s %20s %10s %10s\n", "ID", "NOMBRE", "APELLIDO", "SALARIO", "SECTOR");
+					encabezado++;
 				}
 
 				PrintOneEmployee(lista[i]);
@@ -265,13 +269,13 @@ int OrderEmployees(Employee lista[], int tam)
     char respuesta;
     Employee auxiliar;
 
-    respuesta=GetChar("Desea filtrar por orden alfabetico los apellidos?: [s] para continuar [n] para omitir: ", "Error");
+    respuesta=GetChar("Desea filtrar por orden alfabetico los apellidos?: [S] para continuar [N] para omitir: ", "Error");
     respuesta=tolower(respuesta);
     if(respuesta=='s')
     {
-    		printf("Elija el orden alfabetico\n");
-		printf("1-Ordenar de A a Z\n");
-		printf("2-Ordenar de Z a A\n");
+    	printf("Elija el orden alfabetico\n");
+		printf("1-Ordenamiento A-Z\n");
+		printf("2-Ordenamiento Z-A\n");
 		opcion=GetIntConRango("Ingrese una opcion: ", "Error", 1, 2);
 
 		if(opcion==1)

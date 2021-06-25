@@ -1,5 +1,5 @@
 #include "ArrayEmployees.h"
-#define TL 4
+#define TL 500
 
 int main(void)
 {
@@ -11,8 +11,8 @@ int main(void)
 
 	idIncremental = 1;
 
-	HardcodeDataEmployee(lista, TL);
-	//InitEmployees(lista, TL);
+	//HardcodeDataEmployee(lista, TL);
+	InitEmployees(lista, TL);
 
 	do
 	{

@@ -206,6 +206,47 @@ int SumaAntecesores(int numero)
     return suma;
 }
 
+void GetName(char CADENA[], char MSJ[], char MSJ_ERROR[], int TAM)
+{
+	char buffer[TAM_BUFFER];
+
+	printf("%s", MSJ);
+	fflush(stdin);
+	gets(buffer);
+
+	while(isName(buffer, TAM)==0 || strlen(buffer)==0 || strlen(buffer)>TAM)
+	{
+		printf("%s, %s", MSJ_ERROR, MSJ);
+		fflush(stdin);
+		gets(buffer);
+	}
+
+	strlwr(buffer);
+	buffer[0]=toupper(buffer[0]);
+
+	strcpy(CADENA, buffer);
+
+}
+
+int isName (char cadena[], int len)
+{
+    int rtn = 1;
+    int i;
+
+    if(cadena != NULL && strlen(cadena)<len)
+    {
+		for (i=0;i<=len&&cadena[i] != '\0';i++)
+		{
+			if((cadena[i] < 'a' || cadena[i] > 'z') && (cadena[i] < 'A' || cadena[i] > 'Z') && (cadena[i] < 'ñ' || cadena[i]> 'Ñ'))
+			{
+				rtn = 0;
+				break;
+			}
+		}
+    }
+    return rtn;
+}
+
 int ValidarAlfanumerico(char MSJ[])
 {
     int i;
