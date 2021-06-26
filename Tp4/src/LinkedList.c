@@ -205,7 +205,7 @@ int ll_set(LinkedList* this, int index,void* pElement)
 
     if(this != NULL && index >= 0 && index <= ll_len(this))
     {
-    	pAuxNodo=getNode(this, index); //puedo cambiarlo por un ll_Get?
+    	pAuxNodo=getNode(this, index); //puedo cambiarlo por un ll_Get
     	if(pAuxNodo!=NULL)
     	{
     		pAuxNodo->pElement=pElement;
@@ -351,7 +351,7 @@ int ll_isEmpty(LinkedList* this)
     	}
     	else
     	{
-    		returnAux = 1; //puedo sacar este else y este returno ponerle en otro lado
+    		returnAux = 1; //puedo sacar este else y el return ponerlo en otro lado
     	}
     }
 
@@ -423,7 +423,7 @@ int ll_contains(LinkedList* this, void* pElement)
 		}
 		else
 		{
-			returnAux = 0; //puedo sacar este else y este returno ponerle en otro lado
+			returnAux = 0; //puedo sacar este else y el return ponerlo en otro lado
 		}
     }
 
