@@ -136,23 +136,138 @@ int InicializarAxuliar(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eServi
  */
 int ContadorAcumuladorAxuliar(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eServicio listaS[], int tamS);
 
+/**
+ * @fn void OrdenarPorFecha(eTrabajo[], int, eBicicleta[], int)
+ * @brief Ordena la lista de trabajos por fecha y ante igualdad de fecha por marca
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaB
+ * @param tamB
+ */
 void OrdenarPorFecha(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB);
 
-int OrdenarPorMarca(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB, eServicio listaS[], int tamS);
+/**
+ * @fn void OrdenarPorMarca(eTrabajo[], int, eBicicleta[], int)
+ * @brief Ordena la lista de trabajos por marca de bicicleta
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaB
+ * @param tamB
+ */
+void OrdenarPorMarca(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB);
 
+/**
+ * @fn int ServicioConMasTrabajosRealizado(eTrabajo[], int, eServicio[], int)
+ * @brief
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaS
+ * @param tamS
+ * @return
+ */
 int ServicioConMasTrabajosRealizado(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS);
 
-int DatosBicicleta(eTrabajo trabajo, eBicicleta listaB[], int tamB);
+/**
+ * @fn void ListaBicicletasPorServicio(eTrabajo[], int, eServicio[], int, eBicicleta[], int)
+ * @brief Muestra una lista de bicicles por cada servicio
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaS
+ * @param tamS
+ * @param listaB
+ * @param tamB
+ * @return 1 si puede mostrar la lista 0 si no pudo
+ */
+int ListaBicicletasPorServicio(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB);
 
-int MostrarDatosBicleta(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB);
 
-void ListaBicicletasPorServicio(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB);
-
+/**
+ * @fn int BicicletasRojasEligidasPorUsiario(eTrabajo[], int, eServicio[], int, eBicicleta[], int)
+ * @brief
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaS
+ * @param tamS
+ * @param listaB
+ * @param tamB
+ * @return 1 si pudo contar una bicicleta 0 si no pudo
+ */
 int BicicletasRojasEligidasPorUsiario(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB);
 
+/**
+ * @fn int MostrarUnTrabajOConFormaDePago(eTrabajo, eServicio[], int, eBicicleta[], int, eFormaPago[], int)
+ * @brief Muestra un trabajo con su respectiva forma de pago
+ *
+ * @param trabajo
+ * @param listaS
+ * @param tamS
+ * @param listaB
+ * @param tamB
+ * @param listaP
+ * @param tamP
+ * @return 1 si se puede mostrar un trabajo 0 si no pudo
+ */
 int MostrarUnTrabajOConFormaDePago(eTrabajo trabajo, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP);
 
+/**
+ * @fn int ListaTrabajosConFormaDePago(eTrabajo[], int, eServicio[], int, eBicicleta[], int, eFormaPago[], int)
+ * @brief Muestra toda la lista de trabajos todos los datos, incluyendo servicios, bicicletaas y forma de pago
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaS
+ * @param tamS
+ * @param listaB
+ * @param tamB
+ * @param listaP
+ * @param tamP
+ * @return 1 si puede mostrar un trabajo 0 si no pudo
+ */
 int ListaTrabajosConFormaDePago(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP);
 
+/**
+ * @fn int ListaFormaDePagoMasUtilizada(eTrabajo[], int, eServicio[], int, eBicicleta[], int, eFormaPago[], int)
+ * @brief
+ *
+ * @param listaT
+ * @param tamT
+ * @param listaS
+ * @param tamS
+ * @param listaB
+ * @param tamB
+ * @param listaP
+ * @param tamP
+ * @return
+ */
 int ListaFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP);
+
+/**
+ * @fn int InicializarAxuliarFormaDePaga(eAuxiliar[], eTrabajo[], int, eFormaPago[], int)
+ * @brief Inicializa el auxiliar de la forma de pago
+ *
+ * @param auxiliar
+ * @param listaT
+ * @param tamT
+ * @param listaP
+ * @param tamP
+ * @return 1 si pude inicializar los datos 0 si no pudo
+ */
+int InicializarAxuliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP);
+
+/**
+ * @fn void ContadorAuxiliarFormaDePaga(eAuxiliar[], eTrabajo[], int, eFormaPago[], int)
+ * @brief cuenta y acumula la cantidad de formas de pago que se utilizan
+ *
+ * @param auxiliar
+ * @param listaT
+ * @param tamT
+ * @param listaP
+ * @param tamP
+ */
+void ContadorAuxiliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP);
 #endif /* NEXO_H_ */

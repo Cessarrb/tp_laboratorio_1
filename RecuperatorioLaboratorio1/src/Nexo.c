@@ -295,14 +295,12 @@ void OrdenarPorFecha(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB)
 
 	if(listaT != NULL && tamT>0 && listaB != NULL && tamB>0)
 	{
-		if (listaT != NULL && tamT>0)
-		{
 			for(i=0;i<tamT-1;i++)
 			{
-				indexBicicleta = BuscarBiciPorId(listaB, tamB, listaB[i].idBicicleta);
 				for(j=i+1;j<tamT;j++)
 				{
-					indexBicicletaDos = BuscarBiciPorId(listaB, tamB, listaB[j].idBicicleta);
+					indexBicicleta = BuscarBiciPorId(listaB, tamB, listaT[i].idBicicleta);
+					indexBicicletaDos = BuscarBiciPorId(listaB, tamB, listaT[j].idBicicleta);
 					if(listaT[i].fecha.anio>listaT[j].fecha.anio)
 					{
 						auxiliar=listaT[i];
@@ -317,39 +315,35 @@ void OrdenarPorFecha(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB)
 					}
 				}
 			}
-		}
 	}
 }
 
-int OrdenarPorMarca(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB, eServicio listaS[], int tamS)
+void OrdenarPorMarca(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB)
 {
-	int rtn=0;
+	eTrabajo auxTrabajo;
 	int i;
 	int j;
 	int indexBicicleta;
 	int indexBicicletaDos;
-	eTrabajo auxTrabajo;
 
-	if(listaT != NULL && listaB != NULL && tamB>0)
+	if(listaT != NULL && tamT>0 && listaB != NULL && tamB>0)
 	{
-		for (i=0;i<tamT-1;i++)
+		for(i=0;i<tamT-1;i++)
 		{
-			indexBicicleta = BuscarBiciPorId(listaB, tamB, listaB[i].idBicicleta);
 			for(j=i+1;j<tamT;j++)
 			{
-				indexBicicletaDos = BuscarBiciPorId(listaB, tamB, listaB[j].idBicicleta);
+				indexBicicleta = BuscarBiciPorId(listaB, tamB, listaT[i].idBicicleta);
+				indexBicicletaDos = BuscarBiciPorId(listaB, tamB, listaT[j].idBicicleta);
+
 				if (strcmp(listaB[indexBicicleta].marca, listaB[indexBicicletaDos].marca)>0)
 				{
 					auxTrabajo=listaT[i];
 					listaT[i]=listaT[j];
 					listaT[j]=auxTrabajo;
-					rtn=1;
 				}
 			}
 		}
 	}
-
-	return rtn;
 }
 
 int ServicioConMasTrabajosRealizado(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS)
@@ -392,72 +386,36 @@ int ServicioConMasTrabajosRealizado(eTrabajo listaT[], int tamT, eServicio lista
 	return rtn;
 }
 
-int DatosBicicleta(eTrabajo trabajo, eBicicleta listaB[], int tamB)
-{
-	int rtn=0;
-	int indexBicicleta;
-	int id;
-	char marcaBicicleta[30];
-	int rodado;
-	char color[30];
 
-		indexBicicleta=BuscarBiciPorId(listaB, tamB, trabajo.idBicicleta);
-		if(indexBicicleta!=-1)
-		{
-			id=listaB[indexBicicleta].idBicicleta;
-			strcpy(marcaBicicleta, listaB[indexBicicleta].marca);
-			strcpy(color, listaB[indexBicicleta].color);
-			rodado=listaB[indexBicicleta].rodadoBicicleta;
-
-		}
-		printf("%2d %15s %10d %10s\n", id, marcaBicicleta, rodado, color);
-		rtn=1;
-
-	return rtn;
-}
-
-int MostrarDatosBicleta(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB)
-{
-	int i;
-	int rtn=0;
-
-	if (listaT != NULL && tamT>0)
-	{
-		for(i=0;i<tamT;i++)
-		{
-			if(listaT[i].isEmpty == OCUPADO)
-			{
-				DatosBicicleta(listaT[i], listaB, tamB);
-				rtn=1;
-			}
-		}
-	}
-
-	return rtn;
-}
-
-void ListaBicicletasPorServicio(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB)
+int ListaBicicletasPorServicio(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB)
 {
     int i;
     int j;
     int indexBicicleta;
+    int rtn=0;
 
-    for(i=0;i<tamS;i++)
+    if(listaT != NULL && listaS != NULL && tamS>0 && listaB != NULL && tamB>0)
     {
-		printf("---------------------------------------------\n");
-		printf("Servido de %s | Precio: %.2f\n", listaS[i].descripcion, listaS[i].precio);
-		printf("%2s %15s %10s %15s\n", "ID", "MARCA", "RODADO", "COLOR");
-		printf("---------------------------------------------\n");
-        for(j=0;j<tamT;j++)
-        {
-            if(listaT[j].idServicio==listaS[i].id)
-            {
-            	indexBicicleta=BuscarBiciPorId(listaB, tamB, listaT[j].idBicicleta);
-            	printf("%2d %15s %10d %15s\n", listaB[indexBicicleta].idBicicleta, listaB[indexBicicleta].marca,
-            									listaB[indexBicicleta].rodadoBicicleta, listaB[indexBicicleta].color);
-            }
-        }
+		for(i=0;i<tamS;i++)
+		{
+			printf("---------------------------------------------\n");
+			printf("Servido de %s | Precio: %.2f\n", listaS[i].descripcion, listaS[i].precio);
+			printf("%2s %15s %10s %15s\n", "ID", "MARCA", "RODADO", "COLOR");
+			for(j=0;j<tamT;j++)
+			{
+				if(listaT[j].idServicio==listaS[i].id)
+				{
+					indexBicicleta=BuscarBiciPorId(listaB, tamB, listaT[j].idBicicleta);
+					printf("%2d %15s %10d %15s\n", listaB[indexBicicleta].idBicicleta, listaB[indexBicicleta].marca,
+							listaB[indexBicicleta].rodadoBicicleta, listaB[indexBicicleta].color);
+					rtn=1;
+				}
+			}
+			printf("---------------------------------------------\n");
+		}
     }
+
+    return rtn;
 }
 
 int BicicletasRojasEligidasPorUsiario(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB)
@@ -564,35 +522,16 @@ int ListaFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[]
 	int maxServicio;
 	int flag=0;
 
+	InicializarAxuliarFormaDePaga(listaAux, listaT, tamT, listaP, tamP);
+	ContadorAuxiliarFormaDePaga(listaAux, listaT, tamT, listaP, tamP);
+
 	for(i=0;i<tamP;i++)
 	{
-		listaAux[i].id=listaP[i].idFormaDePago;
-		strcpy(listaAux[i].descripcion, listaP[i].descripcionPago);
-		strcpy(listaAux[i].bancarizado, listaP[i].bancarizado);
-		strcpy(listaAux[i].numOperacion, listaP[i].numOperacion);
-		listaAux[i].contadorFormaDePago=0;
-		listaAux[i].isEmpty=VACIO;
-	}
-
-	for(i=0;i<tamT;i++)
-	{
-		for(j=0;j<tamP;j++)
+		if(flag==0 || listaAux[i].contadorFormaDePago>maxServicio)
 		{
-			if(listaAux[j].id==listaT[i].idFormaDePago)
-			{
-				listaAux[j].contadorFormaDePago++;
-				listaAux[j].isEmpty=OCUPADO;
-			}
+			maxServicio=listaAux[i].contadorFormaDePago;
+			flag=1;
 		}
-	}
-
-	for(i=0;i<tamP;i++)
-	{
-			if(flag==0 || listaAux[i].contadorFormaDePago>maxServicio)
-			{
-				maxServicio=listaAux[i].contadorFormaDePago;
-				flag=1;
-			}
 	}
 
 	for(i=0;i<tamP;i++)
@@ -613,4 +552,41 @@ int ListaFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[]
 	return rtn;
 }
 
+
+int InicializarAxuliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP)
+{
+	int i;
+	int rtn=0;
+
+	for(i=0;i<tamP;i++)
+	{
+		auxiliar[i].id=listaP[i].idFormaDePago;
+		strcpy(auxiliar[i].descripcion, listaP[i].descripcionPago);
+		strcpy(auxiliar[i].bancarizado, listaP[i].bancarizado);
+		strcpy(auxiliar[i].numOperacion, listaP[i].numOperacion);
+		auxiliar[i].contadorFormaDePago=0;
+		auxiliar[i].isEmpty=VACIO;
+		rtn=1;
+	}
+
+	return rtn;
+}
+
+void ContadorAuxiliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP)
+{
+	int i;
+	int j;
+
+	for(i=0;i<tamT;i++)
+	{
+		for(j=0;j<tamP;j++)
+		{
+			if(auxiliar[j].id==listaT[i].idFormaDePago)
+			{
+				auxiliar[j].contadorFormaDePago++;
+				auxiliar[j].isEmpty=OCUPADO;
+			}
+		}
+	}
+}
 

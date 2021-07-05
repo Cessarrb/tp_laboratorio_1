@@ -27,11 +27,11 @@ int main(void)
 	eFormaPago listaP[TP];
 
 	//Hardcodeo
-	HardcodeoDatosTrabajos(listaT, TT);
+	//HardcodeoDatosTrabajos(listaT, TT);
 	HardcodeoDatosBicicleta(listaB, TB);
 	HardcodeoDatosServicios(listaS, TS);
 	HardcodeoDatosFormaPago(listaP, TP);
-	//InicializarTrabajo(listaT, TT);
+	InicializarTrabajo(listaT, TT);
 
 	do
 	{
@@ -60,7 +60,7 @@ int main(void)
 						printf("Dato modificado con exito!\n");
 						break;
 					case 2:
-						printf("Modificacion canelada\n");
+						printf("Modificacion cancelada\n");
 						break;
 				}
 				break;
@@ -74,7 +74,7 @@ int main(void)
 						printf("Baja exitosa!\n");
 						break;
 					case 2:
-						printf("Baja canelada\n");
+						printf("Baja cancelada\n");
 						break;
 				}
 				break;
@@ -95,7 +95,7 @@ int main(void)
 				}
 				break;
 			case 7:
-				OrdenarPorMarca(listaT, TT, listaB, TB, listaS, TS);
+				OrdenarPorMarca(listaT, TT, listaB, TB);
 				if(!MostrarTrabajos(listaT, TT, listaS, TS, listaB, TB))
 				{
 					printf("Ocurrio un error.\n");
@@ -108,7 +108,10 @@ int main(void)
 				}
 				break;
 			case 9:
-				ListaBicicletasPorServicio(listaT, TT, listaS, TS, listaB, TB);
+				if(!ListaBicicletasPorServicio(listaT, TT, listaS, TS, listaB, TB))
+				{
+					printf("No hay datos cargados.\n");
+				}
 				break;
 			case 10:
 				BicicletasRojasEligidasPorUsiario(listaT, TT, listaS, TS, listaB, TB);
