@@ -26,9 +26,9 @@ int BuscarPagoPorId(eFormaPago listaP[], int tamP, int id)
 void HardcodeoDatosFormaPago(eFormaPago listaP[], int tamP)
 {
     int i;
-    eFormaPago listaHard[]={{1, "Mercado Pago", "Sí", "Opcional", OCUPADO},{2, "Tarjeta de credito", "Sí", "Opcional", OCUPADO},
-    						{3, "Efectivo", "No", "Opcional", OCUPADO},{4, "Tarjeta de debito", "Sí", "Opcional", OCUPADO},
-							{5, "Cheque Normativo", "Si", "Opcional", OCUPADO},{6, "Por definir", "Opcional", "Opcional", OCUPADO}};
+    eFormaPago listaHard[]={{1, "Mercado Pago", "Sí", "Opcional"},{2, "Tarjeta de credito", "Sí", "Opcional"},
+    						{3, "Efectivo", "No", "Opcional"},{4, "Tarjeta de debito", "Sí", "Opcional"},
+							{5, "Cheque Normativo", "Si", "Opcional"},{6, "Por definir", "Opcional", "Opcional"}};
 
     for(i=0;i<tamP;i++)
     {

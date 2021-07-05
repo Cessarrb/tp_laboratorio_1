@@ -37,9 +37,9 @@ void InicializarTrabajo(eTrabajo listaT[], int tamT)
 void HardcodeoDatosTrabajos(eTrabajo listaT[], int tamT)
 {
     int i;
-    eTrabajo listaHard[]={{1, 25, 1, 20000, {10,9,1818}, OCUPADO},{2, 26, 1, 20001, {24,2,1904}, OCUPADO},
-    						{3, 27, 1, 20002,{6,4,2019}, OCUPADO},{4, 28, 4, 20003, {17,5,2019}, OCUPADO},
-							{5, 29, 3, 20001, {15,5,2020}, OCUPADO},{6, 28, 2, 20002, {1,5,2012}, OCUPADO},
+    eTrabajo listaHard[]={{1, 25, 1, 20000, {10,9,1818}, OCUPADO},{2, 26, 2, 20001, {24,2,1904}, OCUPADO},
+    						{3, 27, 3, 20002,{6,4,2019}, OCUPADO},{4, 28, 4, 20003, {17,5,2019}, OCUPADO},
+							{5, 29, 5, 20001, {15,5,2020}, OCUPADO},{6, 28, 6, 20002, {1,5,2012}, OCUPADO},
     						{7, 26, 5, 20001, {15,5,2020}, OCUPADO},{8, 25, 5, 20001, {1,5,2021}, OCUPADO}};
 
     for(i=0;i<tamT;i++)

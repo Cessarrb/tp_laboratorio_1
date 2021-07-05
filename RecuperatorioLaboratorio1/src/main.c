@@ -27,11 +27,11 @@ int main(void)
 	eFormaPago listaP[TP];
 
 	//Hardcodeo
-	//HardcodeoDatosTrabajos(listaT, TT);
+	HardcodeoDatosTrabajos(listaT, TT);
 	HardcodeoDatosBicicleta(listaB, TB);
 	HardcodeoDatosServicios(listaS, TS);
 	HardcodeoDatosFormaPago(listaP, TP);
-	InicializarTrabajo(listaT, TT);
+	//InicializarTrabajo(listaT, TT);
 
 	do
 	{

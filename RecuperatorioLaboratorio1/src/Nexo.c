@@ -10,7 +10,7 @@ eTrabajo PedirDatos(eServicio listaS[], int tamS, eBicicleta listaB[], int tamB,
 	MostrarServicios(listaS, tamS);
 	trabajo.idServicio=GetIntConRango("Ingrese el ID del servicio que desea: ", "Error", 20000, 20003);
 	MostrarFormasDePago(listaP, tamP);
-	trabajo.idFormaDePago=GetIntConRango("Ingrese el ID de la forma de pago que desea: ", "Error", 1, 5);
+	trabajo.idFormaDePago=GetIntConRango("Ingrese el ID de la forma de pago que desea: ", "Error", 1, 6);
 	trabajo.fecha.dia=GetIntConRango("Ingrese el dia, del 1 al 31: ", "Error", 1, 31);
 	trabajo.fecha.mes=GetIntConRango("Ingrese el mes, del 1 al 12: ", "Error", 1, 12);
 	trabajo.fecha.anio=GetIntConRango("Ingrese el año, de 1999 a 2021: ", "Error", 1999, 2021);
@@ -565,7 +565,7 @@ int InicializarAxuliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int t
 		strcpy(auxiliar[i].bancarizado, listaP[i].bancarizado);
 		strcpy(auxiliar[i].numOperacion, listaP[i].numOperacion);
 		auxiliar[i].contadorFormaDePago=0;
-		auxiliar[i].isEmpty=VACIO;
+		//auxiliar[i].isEmpty=VACIO;
 		rtn=1;
 	}
 
@@ -584,7 +584,7 @@ void ContadorAuxiliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int ta
 			if(auxiliar[j].id==listaT[i].idFormaDePago)
 			{
 				auxiliar[j].contadorFormaDePago++;
-				auxiliar[j].isEmpty=OCUPADO;
+				//auxiliar[j].isEmpty=OCUPADO;
 			}
 		}
 	}

@@ -8,7 +8,6 @@ typedef struct
 	char descripcionPago[30];
 	char bancarizado[30];
 	char numOperacion[30];
-	int isEmpty;
 }eFormaPago;
 
 
