@@ -58,7 +58,7 @@ int DarBajaTrabajo(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eB
 
 /**
  * @fn int ModificarTrabajo(eTrabajo[], int, eServicio[], int)
- * @brief Se ingresa un id donde si es valido permite en un submeno modificar datos del trabajo
+ * @brief Se ingresa un id donde si es valido permite modificar datos del trabajo como servicio el la bicicleta al que se le da el servicio
  *
  * @param listaT
  * @param tamT
@@ -80,7 +80,7 @@ int MostrarUnTrabajo(eTrabajo trabajo, eServicio listaS[], int tamS, eBicicleta 
 
 /**
  * @fn int MostrarTrabajos(eTrabajo[], int, eServicio[], int)
- * @brief Si hay datos de trabajos cargados muestra un listado de todos
+ * @brief Si hay datos de trabajos cargados muestra un listado de todos ellos con su respectivo servicio y bicicleta
  *
  * @param listaT
  * @param tamT
@@ -101,7 +101,7 @@ void MostrarUnServicioPrestado(eAuxiliar listaAux);
 
 /**
  * @fn int MostrarServiciosPrestados(eAuxiliar[], eTrabajo[], int, eServicio[], int)
- * @brief Muestra una lista de todos los servicios prestados
+ * @brief Muestra una lista del total de los servicios prestados mas el precio acumulado
  *
  * @param listaAux
  * @param listaT
@@ -160,7 +160,7 @@ void OrdenarPorMarca(eTrabajo listaT[], int tamT, eBicicleta listaB[], int tamB)
 
 /**
  * @fn int ServicioConMasTrabajosRealizado(eTrabajo[], int, eServicio[], int)
- * @brief
+ * @brief muestra cual es el servicio con mayor cantidad de trabajos mas la cantidad, y ante igualal de trabajos muestra ambos servicios
  *
  * @param listaT
  * @param tamT
@@ -172,7 +172,7 @@ int ServicioConMasTrabajosRealizado(eTrabajo listaT[], int tamT, eServicio lista
 
 /**
  * @fn void ListaBicicletasPorServicio(eTrabajo[], int, eServicio[], int, eBicicleta[], int)
- * @brief Muestra una lista de bicicles por cada servicio
+ * @brief Muestra una lista de bicicletas con su respectivo servicio mas el precio del mismo
  *
  * @param listaT
  * @param tamT
@@ -187,7 +187,7 @@ int ListaBicicletasPorServicio(eTrabajo listaT[], int tamT, eServicio listaS[], 
 
 /**
  * @fn int BicicletasRojasEligidasPorUsiario(eTrabajo[], int, eServicio[], int, eBicicleta[], int)
- * @brief
+ * @brief Muestra la cantidad de bicicletas rojas elegidas por el usuario
  *
  * @param listaT
  * @param tamT
@@ -232,7 +232,7 @@ int ListaTrabajosConFormaDePago(eTrabajo listaT[], int tamT, eServicio listaS[],
 
 /**
  * @fn int ListaFormaDePagoMasUtilizada(eTrabajo[], int, eServicio[], int, eBicicleta[], int, eFormaPago[], int)
- * @brief
+ * @brief Muestra una lista de los trabajos pero solo con la forma de pago mas utilizada, y ante igualdad con otras formas de pago mostraria ambas
  *
  * @param listaT
  * @param tamT
@@ -244,7 +244,7 @@ int ListaTrabajosConFormaDePago(eTrabajo listaT[], int tamT, eServicio listaS[],
  * @param tamP
  * @return
  */
-int ListaFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP);
+int ListaTrabajoFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP);
 
 /**
  * @fn int InicializarAxuliarFormaDePaga(eAuxiliar[], eTrabajo[], int, eFormaPago[], int)
@@ -270,4 +270,6 @@ int InicializarAxuliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int t
  * @param tamP
  */
 void ContadorAuxiliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP);
+
+int MaximoAuxiliarFormaDePago(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP);
 #endif /* NEXO_H_ */

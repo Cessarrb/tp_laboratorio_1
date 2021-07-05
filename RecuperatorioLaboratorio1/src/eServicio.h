@@ -32,7 +32,7 @@ void HardcodeoDatosServicios(eServicio listaS[], int tamS);
 
 /**
  * @fn void MostrarServicios(eServicio[], int)
- * @brief Muestra una lista de todos los servicios
+ * @brief Muestra una lista de todos los servicios disponibles
  *
  * @param listaS
  * @param tamS

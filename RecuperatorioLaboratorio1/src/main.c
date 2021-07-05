@@ -48,7 +48,6 @@ int main(void)
 				{
 					printf("No hay espacio.\n");
 				}
-
 				break;
 			case 2:
 				switch(ModificarTrabajo(listaT, TT, listaS, TS, listaB, TB))
@@ -123,7 +122,7 @@ int main(void)
 				}
 				break;
 			case 12:
-				if(!ListaFormaDePagoMasUtilizada(listaT, TT, listaS, TS, listaB, TB, listaP, TP))
+				if(!ListaTrabajoFormaDePagoMasUtilizada(listaT, TT, listaS, TS, listaB, TB, listaP, TP))
 				{
 					printf("No hay datos cargados.\n");
 				}

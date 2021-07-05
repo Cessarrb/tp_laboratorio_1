@@ -111,7 +111,7 @@ int ModificarTrabajo(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, 
 				break;
 			}
 		}
-		if(flag!=4)
+		if(flag!=5)
 		{
 			index=BuscarTrabajoPorId(listaT, tamT, id);
 			respuesta=GetChar("Esta seguro que desea modificar el trabajo? Ingrese [s] para continuar o [cualquier letra] para cancelar: ", "Error, [s] para continuar o [cualquier letra] para cancelar: ");
@@ -119,13 +119,19 @@ int ModificarTrabajo(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, 
 			rtn=2;
 			if(respuesta=='s')
 			{
-				printf("1-SERVICIO\n");
-				printf("2-SALIR\n");
+				printf("1-BICICLETA\n");
+				printf("2-SERVICIO\n");
+				printf("3-SALIR\n");
 				rtn=2;
-				opcion=GetIntConRango("Ingrese una opcion: ", "Error", 1, 2);
+				opcion=GetIntConRango("Ingrese una opcion: ", "Error", 1, 3);
 				switch(opcion)
 				{
 					case 1:
+						MostrarBicicletas(listaB, tamB);
+						listaT[index].idBicicleta=GetIntConRango("Ingrese el ID de la nueva bicicleta: ", "ERROR", 25, 29);
+						rtn=1;
+						break;
+					case 2:
 						MostrarServicios(listaS, tamS);
 						listaT[index].idServicio=GetIntConRango("Ingrese el ID del nuevo servicio: ", "ERROR", 20000, 20003);
 						rtn=1;
@@ -377,7 +383,7 @@ int ServicioConMasTrabajosRealizado(eTrabajo listaT[], int tamT, eServicio lista
 			if(listaAux[i].contador==maxServicio)
 			{
 				indexServicio=BuscarServicioPorId(listaS, tamS, listaAux[i].id);
-				printf("El servicio con mayor cantidad de trabajos es: %s con %d productos\n", listaS[indexServicio].descripcion, maxServicio);
+				printf("El servicio con mayor cantidad de trabajos es: %s con %d trabajos\n", listaS[indexServicio].descripcion, maxServicio);
 				rtn=1;
 			}
 		}
@@ -513,32 +519,23 @@ int ListaTrabajosConFormaDePago(eTrabajo listaT[], int tamT, eServicio listaS[],
 	return rtn;
 }
 
-int ListaFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP)
+int ListaTrabajoFormaDePagoMasUtilizada(eTrabajo listaT[], int tamT, eServicio listaS[], int tamS, eBicicleta listaB[], int tamB, eFormaPago listaP[], int tamP)
 {
 	eAuxiliar listaAux[tamP];
 	int rtn=0;
 	int i=0;
 	int j=0;
-	int maxServicio;
-	int flag=0;
+	int maxFormaDePago;
 
 	InicializarAxuliarFormaDePaga(listaAux, listaT, tamT, listaP, tamP);
 	ContadorAuxiliarFormaDePaga(listaAux, listaT, tamT, listaP, tamP);
-
-	for(i=0;i<tamP;i++)
-	{
-		if(flag==0 || listaAux[i].contadorFormaDePago>maxServicio)
-		{
-			maxServicio=listaAux[i].contadorFormaDePago;
-			flag=1;
-		}
-	}
+	maxFormaDePago=MaximoAuxiliarFormaDePago(listaAux, listaT, tamT, listaP, tamP);
 
 	for(i=0;i<tamP;i++)
 	{
 		for(j=0;j<tamT;j++)
 		{
-			if(listaAux[i].contadorFormaDePago==maxServicio && listaAux[i].id==listaT[j].idFormaDePago)
+			if(listaAux[i].contadorFormaDePago==maxFormaDePago && listaAux[i].id==listaT[j].idFormaDePago)
 			{
 				if(rtn==0) //uso la variable rtn para mostrar el encabezado
 				{
@@ -565,7 +562,6 @@ int InicializarAxuliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int t
 		strcpy(auxiliar[i].bancarizado, listaP[i].bancarizado);
 		strcpy(auxiliar[i].numOperacion, listaP[i].numOperacion);
 		auxiliar[i].contadorFormaDePago=0;
-		//auxiliar[i].isEmpty=VACIO;
 		rtn=1;
 	}
 
@@ -584,9 +580,25 @@ void ContadorAuxiliarFormaDePaga(eAuxiliar auxiliar[], eTrabajo listaT[], int ta
 			if(auxiliar[j].id==listaT[i].idFormaDePago)
 			{
 				auxiliar[j].contadorFormaDePago++;
-				//auxiliar[j].isEmpty=OCUPADO;
 			}
 		}
 	}
 }
 
+int MaximoAuxiliarFormaDePago(eAuxiliar auxiliar[], eTrabajo listaT[], int tamT, eFormaPago listaP[], int tamP)
+{
+	int i;
+	int maxServicio;
+	int flag=0;
+
+	for(i=0;i<tamP;i++)
+	{
+		if(flag==0 || auxiliar[i].contadorFormaDePago>maxServicio)
+		{
+			maxServicio=auxiliar[i].contadorFormaDePago;
+			flag=1;
+		}
+	}
+
+	return maxServicio;
+}
